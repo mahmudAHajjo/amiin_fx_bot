@@ -1,13 +1,20 @@
 import logging
+import os
+from pathlib import Path
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from bot.config import TRC20_ADDRESS, PAYMENTS_CONTACT
 
-# Set up logging at the top of the file
+# Create logs directory if it doesn't exist
+logs_dir = Path(__file__).parent.parent.parent / 'logs'
+logs_dir.mkdir(exist_ok=True)
+
+# Set up logging
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    filename='logs/bot.log'
+    filename=str(logs_dir / 'bot.log'),
+    filemode='a'
 )
 logger = logging.getLogger(__name__)
 
